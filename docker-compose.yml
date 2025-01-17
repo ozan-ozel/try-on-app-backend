@@ -1,0 +1,38 @@
+version: '3.4'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8001:8001"
+    env_file:
+      - .env
+    depends_on:
+      - redis-try-on
+    networks:
+      - try-on-gateway
+
+  redis-try-on:
+    image: 'redis:latest'
+    container_name: redis-try-on
+    ports:
+      - 6379:6379
+    networks:
+      - try-on-gateway
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - try-on-gateway
+
+networks:
+  try-on-gateway:
+    name: try-on-gateway
