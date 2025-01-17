@@ -36,3 +36,4 @@ services:
 networks:
   try-on-gateway:
     name: try-on-gateway
+    external: true
