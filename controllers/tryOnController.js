@@ -30,7 +30,7 @@ export const executeTryOn = async (req, res) => {
     // Process the images
     const result = await execute(userImageUrl, modelImage);
 
-    logWithTimestamp("Executed try-on" + result);
+    logWithTimestamp("Executed try-on\n" + JSON.stringify(result));
 
     // Send the result back to the client
     res.send(result);
